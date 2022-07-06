@@ -1,7 +1,8 @@
 package com.example.socialkata.model.entity.media;
 
-import com.javamentor.developer.social.platform.models.entity.album.Album;
-import com.javamentor.developer.social.platform.models.entity.user.User;
+
+import com.example.socialkata.model.entity.album.Album;
+import com.example.socialkata.model.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;

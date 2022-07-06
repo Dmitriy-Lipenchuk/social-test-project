@@ -1,7 +1,7 @@
 package com.example.socialkata.model.entity.post;
 
 
-import com.kata.social.network.platform.model.entity.user.User;
+import com.example.socialkata.model.entity.user.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;

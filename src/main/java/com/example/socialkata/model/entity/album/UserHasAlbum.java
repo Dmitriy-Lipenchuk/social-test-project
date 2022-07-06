@@ -1,6 +1,6 @@
 package com.example.socialkata.model.entity.album;
 
-import com.javamentor.developer.social.platform.models.entity.user.User;
+import com.example.socialkata.model.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

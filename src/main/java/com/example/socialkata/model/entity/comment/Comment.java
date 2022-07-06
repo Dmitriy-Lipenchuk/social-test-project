@@ -1,6 +1,6 @@
 package com.example.socialkata.model.entity.comment;
 
-import com.javamentor.developer.social.platform.models.entity.user.User;
+import com.example.socialkata.model.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;

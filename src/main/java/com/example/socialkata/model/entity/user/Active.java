@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +32,6 @@ public class Active {
     private String name;
 
     @Transient
-    @JsonIgnore
     @OneToMany(mappedBy = "active")
     private Set<User> users;
 

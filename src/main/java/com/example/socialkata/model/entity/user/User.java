@@ -1,9 +1,9 @@
 package com.example.socialkata.model.entity.user;
 
-import com.javamentor.developer.social.platform.models.dto.users.MostPopularProfessionsInUsersDto;
-import com.javamentor.developer.social.platform.models.entity.chat.GroupChat;
-import com.javamentor.developer.social.platform.models.entity.media.Audios;
-import com.javamentor.developer.social.platform.models.entity.media.Videos;
+
+import com.example.socialkata.model.entity.chat.GroupChat;
+import com.example.socialkata.model.entity.media.Audios;
+import com.example.socialkata.model.entity.media.Videos;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +18,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
-import javax.persistence.ColumnResult;
-import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,8 +26,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -40,27 +36,6 @@ import java.util.Set;
 
 
 
-
-@NamedNativeQuery(
-        name = "MostPopularProfessionsInUsers",
-        query = "select t.profession as title, round((100.00 * count(*)) / (select count(*) from users), 2) as rate \n" +
-                "from users pt join users t on pt.user_id = t.user_id\n" +
-                "                group by t.profession \n" +
-                "                order by rate desc",
-        resultSetMapping = "MostPopularProfessionsInUsersMapping"
-)
-@SqlResultSetMapping(
-        name = "MostPopularProfessionsInUsersMapping",
-        classes = {
-                @ConstructorResult(
-                        columns = {
-                                @ColumnResult(name = "title"),
-                                @ColumnResult(name = "rate", type = double.class)
-                        },
-                        targetClass = MostPopularProfessionsInUsersDto.class
-                )
-        }
-)
 
 
 @ToString

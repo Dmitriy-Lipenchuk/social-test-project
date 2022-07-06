@@ -1,8 +1,8 @@
 package com.example.socialkata.model.entity.album;
 
-import com.javamentor.developer.social.platform.exception.ApiRequestException;
-import com.javamentor.developer.social.platform.models.entity.media.MediaType;
-import com.javamentor.developer.social.platform.models.entity.media.Videos;
+import com.example.socialkata.exception.ApiRequestException;
+import com.example.socialkata.model.entity.media.MediaType;
+import com.example.socialkata.model.entity.media.Videos;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

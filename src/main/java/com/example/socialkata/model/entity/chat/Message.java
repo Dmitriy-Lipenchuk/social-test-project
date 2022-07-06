@@ -1,7 +1,7 @@
 package com.example.socialkata.model.entity.chat;
 
 
-import com.kata.social.network.platform.model.entity.user.User;
+import com.example.socialkata.model.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

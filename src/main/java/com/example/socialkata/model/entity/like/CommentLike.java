@@ -1,8 +1,8 @@
 package com.example.socialkata.model.entity.like;
 
-import com.javamentor.developer.social.platform.exception.ApiRequestException;
-import com.javamentor.developer.social.platform.models.entity.comment.Comment;
-import com.javamentor.developer.social.platform.models.entity.user.User;
+import com.example.socialkata.exception.ApiRequestException;
+import com.example.socialkata.model.entity.comment.Comment;
+import com.example.socialkata.model.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
