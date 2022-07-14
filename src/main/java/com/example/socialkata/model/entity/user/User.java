@@ -116,11 +116,6 @@ public class User implements UserDetails {
     @JoinColumn(name = "active_id", nullable = false)
     private Active active;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Language.class)
-    @JoinTable(name = "user_languages", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "language_id"))
-    private Set<Language> languages;
-
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Audios.class)
     @JoinTable(name = "users_audios_collections", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "audio_id"))
