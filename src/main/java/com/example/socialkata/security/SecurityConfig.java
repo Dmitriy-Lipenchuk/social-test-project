@@ -51,20 +51,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Сделал две учетки в In-Memory для работы на первоначальном этапе,
      * как настроим БД переключимся на DAO-аутентификацию
      * Две учетные записи (логин и пароль совпадают): admin, user
-     * использовал bcrypt = 10
+     * использовал bcrypt with strength = 12
      * @return
      */
     @Bean
     public UserDetailsService users () {
         UserDetails user = User.builder()
                 .username("user")
-                .password("{bcrypt}$2a$10$fOl4/TWueVB0xPhEBaBMAOx7MHf6oUX5fomJkGB4gRuOmluc2pAXS")
+                .password("{bcrypt}$2a$12$.jftluVu/IzMxiZFo/aWcepjMD9gfknpTSVitnjIeAs4EyHvyReD6")
                 .roles("USER")
                 .build();
 
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("{bcrypt}$2a$10$wlFRjV9g.F8yUhOBGUwqie6DQj39W6PsWJoPJTQT/CbSSSh.5E50S")
+                .password("{bcrypt}$2a$12$RN9c9PyDRJEvZcYo0h9tFefUkS7nxccLY2XRNMusLgOEscJ0umxKq")
                 .roles("ADMIN", "USER")
                 .build();
 
@@ -87,6 +87,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 }
