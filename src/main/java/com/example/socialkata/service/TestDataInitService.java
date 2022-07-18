@@ -15,11 +15,11 @@ import java.time.LocalDate;
 @Service
 public class TestDataInitService {
 
-    private final UserService userDao;
+    private final UserService userService;
 
-    private final RoleService roleDao;
+    private final RoleService roleService;
 
-    private final ActiveService activeDao;
+    private final ActiveService activeService;
 
     private final String[] firstNames = new String[] {"Pep", "Jon", "Edd", "Cercei", "Jamie", "Karl", "Son", "Smith",
             "Robert", "Aegon", "Samuel", "Xavi", "Anderson", "Zak", "Ollie", "Jora", "Clark", "Winter",
@@ -92,16 +92,17 @@ public class TestDataInitService {
             "Senior Java Developer"};
 
     @Autowired
-    public TestDataInitService(UserService userDao, RoleService roleDao, ActiveService activeDao) {
-        this.userDao = userDao;
-        this.roleDao = roleDao;
-        this.activeDao = activeDao;
+    public TestDataInitService(UserService userService, RoleService roleService, ActiveService activeService) {
+
+        this.userService = userService;
+        this.roleService = roleService;
+        this.activeService = activeService;
     }
 
     public void setUsersWithRandomParameters() {
-        roleDao.create(new Role("ROLE_ADMIN"));
-        roleDao.create(new Role("ROLE_USER"));
-        activeDao.create(new Active("active"));
+        roleService.create(new Role("ROLE_ADMIN"));
+        roleService.create(new Role("ROLE_USER"));
+        activeService.create(new Active("active"));
 
         LocalDate dateOfBirth = LocalDate.of(1901, 7, 28);
 
@@ -122,20 +123,20 @@ public class TestDataInitService {
             user.setAvatar(firstNames[i] + " ☺");
 
             if (i <= 25) {
-                user.setRole(roleDao.getRoleByName("ROLE_ADMIN"));
+                user.setRole(roleService.getRoleByName("ROLE_ADMIN"));
                 user.setPassword(passwords[0]); //password - admin
             } else {
-                user.setRole(roleDao.getRoleByName("ROLE_USER"));
+                user.setRole(roleService.getRoleByName("ROLE_USER"));
                 user.setPassword(passwords[1]); //password - user
             }
 
-            if (activeDao.getById(1L).isPresent()) {
-                user.setActive(activeDao.getById(1L).get());
+            if (activeService.getById(1L).isPresent()) {
+                user.setActive(activeService.getById(1L).get());
             } else {
                 System.out.println("NET ACTIVE");
             }
 
-            userDao.create(user);
+            userService.create(user);
         }
     }
 
