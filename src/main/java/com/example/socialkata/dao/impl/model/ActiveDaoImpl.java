@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ActiveDaoImpl extends GenericDaoAbstract<Active, Long> implements ActiveDao {
+
 }

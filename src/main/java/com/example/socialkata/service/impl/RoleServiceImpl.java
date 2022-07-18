@@ -1,6 +1,5 @@
 package com.example.socialkata.service.impl;
 
-import com.example.socialkata.dao.abstracts.GenericDao;
 import com.example.socialkata.dao.abstracts.model.RoleDao;
 import com.example.socialkata.model.entity.user.Role;
 import com.example.socialkata.service.abstracts.model.RoleService;
@@ -13,8 +12,8 @@ public class RoleServiceImpl extends GenericServiceAbstract<Role, Long> implemen
     private final RoleDao roleDao;
 
     @Autowired
-    public RoleServiceImpl(GenericDao<Role, Long> dao, RoleDao roleDao) {
-        super(dao);
+    public RoleServiceImpl(RoleDao roleDao) {
+        super(roleDao);
         this.roleDao = roleDao;
     }
 
