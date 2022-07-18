@@ -29,7 +29,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @AutoConfigureMockMvc//тестируем ВЕБ приложение
 @WithMockUser(roles = "ADMIN")
 public abstract class AbstractTest {
-     protected MockMvc mvc;
+    protected MockMvc mvc;
     @Autowired
     WebApplicationContext webApplicationContext;
 
@@ -38,8 +38,8 @@ public abstract class AbstractTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build(); //выполняем всю начальную настройку,
-                          // необходимую для интеграции Spring Security
-                          // с Spring MVC Test.
+        // необходимую для интеграции Spring Security
+        // с Spring MVC Test.
     }
     protected String mapToJson(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
