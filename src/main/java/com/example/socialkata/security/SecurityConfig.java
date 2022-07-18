@@ -22,7 +22,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    private final UserService userService;
-//
+
 //    @Autowired
 //    public SecurityConfig(UserService userService) {
 //        this.userService = userService;
@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
 //                .successHandler(successUserHandler)  //если решим перекидывать пользователя куда-то, например, для заполнения профиля
-                .permitAll()
+//                .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/")
                 .permitAll();
@@ -58,13 +58,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService users () {
         UserDetails user = User.builder()
                 .username("user")
-                .password("{bcrypt}$2a$12$.jftluVu/IzMxiZFo/aWcepjMD9gfknpTSVitnjIeAs4EyHvyReD6")
+                .password("{bcrypt}$2a$12$Od7WUVTKPfFFVRG8.WCyMu6RPoOOkzCwdqLAbpCclXjmTxUSvSNLC")
                 .roles("USER")
                 .build();
 
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("{bcrypt}$2a$12$RN9c9PyDRJEvZcYo0h9tFefUkS7nxccLY2XRNMusLgOEscJ0umxKq")
+                .password("{bcrypt}$2a$12$wH4VM9iugtEm1iQqztZCLe7bS.FEkor4pZzvb3ON4minl1k1vISsW")
                 .roles("ADMIN", "USER")
                 .build();
 
@@ -85,8 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        return authenticationProvider;
 //    }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        //System.out.println(new BCryptPasswordEncoder().encode("admin"));
+//        return new BCryptPasswordEncoder(12);
+//    }
 }
