@@ -67,7 +67,6 @@ public class User implements UserDetails {
     @Column
     private String aboutMe;
 
-
     @Column(name = "image")
     private String avatar;
 
@@ -89,7 +88,6 @@ public class User implements UserDetails {
     @Type(type = "org.hibernate.type.LocalDateTimeType")
     @UpdateTimestamp
     private LocalDateTime lastRedactionDate;
-
 
     @Getter(AccessLevel.NONE)
     @Column(name = "is_enable")
