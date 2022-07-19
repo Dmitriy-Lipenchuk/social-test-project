@@ -668,9 +668,13 @@ Flyway позволяет контролировать структуру баз
 
 ```
 Для переключения конфигурации на local необходимо задать значения следующих environment variables
-PROFILE_ACTIVE (активный профиль)
-PSQL_UNAME (username локальной БД)
-PSQL_PASS (пароль к локальной БД)
+PROFILE_ACTIVE=local
+HOST=localhost
+PORT=5432
+BD_NAME=(имя вашей локальной БД)
+PSQL_UNAME=(ваше username локальной БД)
+PSQL_PASS=(ваш пароль к локальной БД)
+
 ```
 Для этого нужно:
 1. Зайти в редактирование конфигурации
