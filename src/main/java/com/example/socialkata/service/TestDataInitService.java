@@ -3,6 +3,7 @@ package com.example.socialkata.service;
 import com.example.socialkata.model.entity.user.Active;
 import com.example.socialkata.model.entity.user.Role;
 import com.example.socialkata.model.entity.user.User;
+import com.example.socialkata.service.abstracts.GenericService;
 import com.example.socialkata.service.abstracts.model.ActiveService;
 import com.example.socialkata.service.abstracts.model.RoleService;
 import com.example.socialkata.service.abstracts.model.UserService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 
 @Service
@@ -99,10 +102,23 @@ public class TestDataInitService {
         this.activeService = activeService;
     }
 
+    public void initRole(String name) {
+        roleService.create(new Role(name));
+    }
+
+    public void initActive(String name) {
+        activeService.create(new Active(name));
+    }
+
+    public void initUser(User user) {
+        userService.create(user);
+    }
+
     public void setUsersWithRandomParameters() {
-        roleService.create(new Role("ROLE_ADMIN"));
-        roleService.create(new Role("ROLE_USER"));
-        activeService.create(new Active("active"));
+        initRole("ROLE_ADMIN");
+        initRole("ROLE_USER");
+
+        initActive("active");
 
         LocalDate dateOfBirth = LocalDate.of(1901, 7, 28);
 
@@ -136,7 +152,7 @@ public class TestDataInitService {
                 System.out.println("NET ACTIVE");
             }
 
-            userService.create(user);
+            initUser(user);
         }
     }
 
