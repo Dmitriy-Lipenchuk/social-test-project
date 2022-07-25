@@ -15,7 +15,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 
-@Service
+//@Service
 public class TestDataInitService {
 
     private final UserService userService;
