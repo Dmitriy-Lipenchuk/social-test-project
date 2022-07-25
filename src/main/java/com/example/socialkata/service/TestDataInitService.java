@@ -3,7 +3,6 @@ package com.example.socialkata.service;
 import com.example.socialkata.model.entity.user.Active;
 import com.example.socialkata.model.entity.user.Role;
 import com.example.socialkata.model.entity.user.User;
-import com.example.socialkata.service.abstracts.GenericService;
 import com.example.socialkata.service.abstracts.model.ActiveService;
 import com.example.socialkata.service.abstracts.model.RoleService;
 import com.example.socialkata.service.abstracts.model.UserService;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 
 @Service
@@ -137,6 +134,7 @@ public class TestDataInitService {
             user.setLinkSite(emails[i]);
             user.setAboutMe(firstNames[i] + " " + lastNames[i] + ", " + cities[i]);
             user.setAvatar(firstNames[i] + " ☺");
+            user.setIsEnable(true);
 
             if (i <= 25) {
                 user.setRole(roleService.getRoleByName("ROLE_ADMIN"));
