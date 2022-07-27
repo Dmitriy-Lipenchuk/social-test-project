@@ -22,11 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * comments
  */
-@ExtendWith(DBUnitExtension.class)
-@DBRider
-@SpringBootTest(classes = SocialKataApplication.class)
-@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
-public class UserControllerTest {
+public class UserControllerTest extends AbstractTest {
 
     @Autowired
     private UserTestController userTestController;

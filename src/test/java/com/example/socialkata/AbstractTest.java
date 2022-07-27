@@ -3,6 +3,10 @@ package com.example.socialkata;
 import java.io.IOException;
 
 import com.example.socialkata.model.entity.user.User;
+import com.github.database.rider.core.api.configuration.DBUnit;
+import com.github.database.rider.core.api.configuration.Orthography;
+import com.github.database.rider.junit5.DBUnitExtension;
+import com.github.database.rider.junit5.api.DBRider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +28,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @ExtendWith(SpringExtension.class) //подключаем спринг в тест
-@SpringBootTest//указываем класс запуска
 @WebAppConfiguration
 @AutoConfigureMockMvc//тестируем ВЕБ приложение
 @WithMockUser(roles = "ADMIN")
+@ExtendWith(DBUnitExtension.class)
+@DBRider
+@SpringBootTest(classes = SocialKataApplication.class)
+@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 public abstract class AbstractTest {
     protected MockMvc mvc;
     @Autowired
