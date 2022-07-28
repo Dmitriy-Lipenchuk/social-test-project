@@ -58,9 +58,4 @@
          last_name="Anderson" last_redaction_date="2022-07-23 13:11:31.335959" link_site="ddghkgkgkgk@gmail.com"
          password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
          persist_date="2022-07-23 13:11:31.335976" profession="Junior Developer" status="??" active_id="1" role_id="1"/>
-
-  <role id="1" name="ADMIN"/>
-  <role id="2" name="USER"/>
-
-  <active id="1" name="active"/>
 </dataset>

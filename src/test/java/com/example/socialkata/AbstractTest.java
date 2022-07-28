@@ -36,6 +36,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @SpringBootTest(classes = SocialKataApplication.class)
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 public abstract class AbstractTest {
+    @Autowired
     protected MockMvc mvc;
     @Autowired
     WebApplicationContext webApplicationContext;
