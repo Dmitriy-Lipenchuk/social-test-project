@@ -29,7 +29,7 @@ public class UserDtoDaoImpl implements UserDtoDao {
     }
 
     public boolean isExist(Long userId) {
-        return entityManager.createQuery("select case when (count(*)>0) then true else false end from User u where u.userId = :id", Boolean.class)
+        return entityManager.createQuery("select (count(id)) > 0 from User u where u.userId = :id", Boolean.class)
                 .setParameter("id", userId).getSingleResult();
     }
 
