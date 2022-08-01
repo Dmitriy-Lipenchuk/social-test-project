@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 
-@Service
+//@Service
 public class TestDataInitService {
 
     private final UserService userService;
