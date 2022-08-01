@@ -1,0 +1,61 @@
+<dataset>
+  <users user_id="1" about_me="Pep Flow, Москва" image="Pep ☺" city="Москва" date_of_birth="1901-07-28"
+        education="Master degree" email="admin@gmail.com" first_name="Pep" is_enable="0" last_name="Flow"
+        last_redaction_date="2022-07-23 13:11:31.297581" link_site="admin@gmail.com"
+        password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+        persist_date="2022-07-23 13:11:31.297631" profession="Lirik" status="Chill" active_id="1" role_id="1"/>
+
+  <users user_id="2" about_me="Jon Snow, Pavlovo" image="Jon ☺" city="Pavlovo" date_of_birth="1901-08-05"
+         education="High School" email="eety@gmail.com" first_name="Jon" is_enable="0" last_name="Snow"
+         last_redaction_date="2022-07-23 13:11:31.303443" link_site="eety@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.303461" profession="Повар" status="relax" active_id="1" role_id="1"/>
+
+  <users user_id="3" about_me="Edd Sand, Gorky" image="Edd ☺" city="Gorky" date_of_birth="1901-08-21"
+         education="Ph.D" email="fett@gmail.com" first_name="Edd" is_enable="0" last_name="Sand"
+         last_redaction_date="2022-07-23 13:11:31.307609" link_site="fett@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.307626" profession="Craftmen" status="Bored" active_id="1" role_id="1"/>
+
+  <users user_id="4" about_me="Cercei Wind, Budapest" image="Cercei ☺" city="Budapest" date_of_birth="1901-09-14"
+         education="Highgarden" email="nbnb@gmail.com" first_name="Cercei" is_enable="0" last_name="Wind"
+         last_redaction_date="2022-07-23 13:11:31.312202" link_site="nbnb@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.312220" profession="Driver" status="Lazy" active_id="1" role_id="1"/>
+
+  <users user_id="5" about_me="Jamie Winter, London" image="Jamie ☺" city="London" date_of_birth="1901-10-16"
+         education="Stanford University" email="d4444@gmail.com" first_name="Jamie" is_enable="0" last_name="Winter"
+         last_redaction_date="2022-07-23 13:11:31.316847" link_site="d4444@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.316867" profession="Teacher" status="breathing" active_id="1" role_id="1"/>
+
+  <users user_id="6" about_me="Karl Kastark, Liverpool" image="Karl ☺" city="Liverpool" date_of_birth="1901-11-25"
+         education="NNTU, Russia" email="dsx@gmail.com" first_name="Karl" is_enable="0" last_name="Kastark"
+         last_redaction_date="2022-07-23 13:11:31.321240" link_site="dsx@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.321259" profession="Manager" status="zzzZzz..." active_id="1" role_id="1"/>
+
+  <users user_id="7" about_me="Son Sow, Amsterdam" image="Son ☺" city="Amsterdam" date_of_birth="1902-01-12"
+         education="Oxford, United Kingdom" email="zz5@gmail.com" first_name="Son" is_enable="0" last_name="Sow"
+         last_redaction_date="2022-07-23 13:11:31.325222" link_site="zz5@gmail.com"
+         password='$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW'
+         persist_date="2022-07-23 13:11:31.325239" profession="Boss" status="O_O" active_id="1" role_id="1"/>
+
+  <users user_id="8" about_me="Smith White, Manchester" image="Smith ☺" city="Manchester" date_of_birth="1902-03-09"
+         education="Harvard, United States" email="dbvnnd@gmail.com" first_name="Smith" is_enable="0"
+         last_name="White" last_redaction_date="2022-07-23 13:11:31.328856" link_site="dbvnnd@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.328873" profession="Joker" status=":)" active_id="1" role_id="1"/>
+
+  <users user_id="9" about_me="Robert Walker, Zurich" image="Robert ☺" city="Zurich" date_of_birth="1902-05-12"
+         education="Home, Homeland" email='cxt@gmail.com' first_name="Robert" is_enable="0" last_name="Walker"
+         last_redaction_date="2022-07-23 13:11:31.332379" link_site="cxt@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.332396" profession="SellSword" status=")))" active_id="1" role_id="1"/>
+
+  <users user_id="10" about_me="Aegon Anderson, Oslo" image="Aegon ☺" city="Oslo" date_of_birth="1902-07-23"
+         education="California IoT, United States" email="ddghkgkgkgk@gmail.com" first_name="Aegon" is_enable="0"
+         last_name="Anderson" last_redaction_date="2022-07-23 13:11:31.335959" link_site="ddghkgkgkgk@gmail.com"
+         password="$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW"
+         persist_date="2022-07-23 13:11:31.335976" profession="Junior Developer" status="??" active_id="1" role_id="1"/>
+</dataset>
