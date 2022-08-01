@@ -1,6 +1,6 @@
 package com.example.socialkata.service.impl.model;
 
-import com.example.socialkata.dao.abstracts.dto.model.UserDao;
+import com.example.socialkata.dao.abstracts.model.UserDao;
 import com.example.socialkata.model.entity.user.User;
 import com.example.socialkata.service.abstracts.model.UserService;
 import com.example.socialkata.service.impl.GenericServiceAbstract;
