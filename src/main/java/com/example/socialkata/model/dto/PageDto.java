@@ -7,13 +7,13 @@ import java.util.List;
 @Getter
 public class PageDto<T> {
 
-    private Long itemsCount;
+    private int itemsCount;
 
     private List<T> items;
 
     private int itemsOnPage;
 
-    public PageDto<T> setItemsCount(Long itemsCount) {
+    public PageDto<T> setItemsCount(int itemsCount) {
         this.itemsCount = itemsCount;
         return this;
     }

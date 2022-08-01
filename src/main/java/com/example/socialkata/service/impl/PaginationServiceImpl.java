@@ -25,7 +25,7 @@ public class PaginationServiceImpl<T> implements PaginationService<T> {
 
         List<T> items = paginationDao.getItems(parameters);
         int itemsOnPage = items.size();
-        long itemsCount = paginationDao.getItemsCount(parameters);
+        int itemsCount = paginationDao.getItemsCount(parameters);
 
         return new PageDto<T>()
                 .setItemsCount(itemsCount)

@@ -7,5 +7,5 @@ public interface PaginationDao<T> {
 
     List<T> getItems(Map<String, Object> parameters);
 
-    Long getItemsCount(Object param);
+    int getItemsCount(Map<String, Object> param);
 }
