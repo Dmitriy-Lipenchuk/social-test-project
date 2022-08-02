@@ -12,5 +12,4 @@ public class SocialKataApplication {
         SpringApplication.run(SocialKataApplication.class, args);
     }
 
-
 }

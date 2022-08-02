@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDaoImpl extends GenericDaoAbstract<User, Long> implements UserDao {
-
-    @Override
-    public User getUserById(Long id) {
-        return null;
+    public User getByEmail(String username){
+       return (User) entityManager.createQuery("select a from User as a WHERE a.email=:emailParam")
+                .setParameter("emailParam",username)
+                .getSingleResult();
     }
 }
