@@ -6,23 +6,27 @@
 
 package com.example.socialkata.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+//    private final UserService userService;
 
+//    @Autowired
+//    public SecurityConfig(UserService userService) {
+//        this.userService = userService;
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,16 +45,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/")
                 .permitAll();
     }
+
+    /**
+     * In-Memory
+     * Сделал две учетки в In-Memory для работы на первоначальном этапе,
+     * как настроим БД переключимся на DAO-аутентификацию
+     * Две учетные записи (логин и пароль совпадают): admin, user
+     * использовал bcrypt with strength = 12
+     * @return
+     */
     @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(12);
+    public UserDetailsService users () {
+        UserDetails user = User.builder()
+                .username("user")
+                .password("{bcrypt}$2a$12$Od7WUVTKPfFFVRG8.WCyMu6RPoOOkzCwdqLAbpCclXjmTxUSvSNLC")
+                .roles("USER")
+                .build();
+
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password("{bcrypt}$2a$12$wH4VM9iugtEm1iQqztZCLe7bS.FEkor4pZzvb3ON4minl1k1vISsW")
+                .roles("ADMIN", "USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(encoder());
-        return authProvider;
-    }
+    /**
+     * DaoAuthentication
+     * Получение информации о логине и пароле пользователя на основе нашего класса User
+     * Для использования данного метода нужно создать UserService, пока не работает
+     * @return
+     */
+//    public DaoAuthenticationProvider daoAuthenticationProvider () {
+//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+//        authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+//        authenticationProvider.setUserDetailsService(userService);
+//
+//        return authenticationProvider;
+//    }
+
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        //System.out.println(new BCryptPasswordEncoder().encode("admin"));
+//        return new BCryptPasswordEncoder(12);
+//    }
 }
