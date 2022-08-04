@@ -7,9 +7,9 @@ import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.junit5.DBUnitExtension;
 import com.github.database.rider.junit5.api.DBRider;
-import org.flywaydb.test.annotation.FlywayTest;
-
-import org.flywaydb.test.junit5.FlywayTestExtension;
+//import org.flywaydb.test.annotation.FlywayTest;
+//
+//import org.flywaydb.test.junit5.FlywayTestExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

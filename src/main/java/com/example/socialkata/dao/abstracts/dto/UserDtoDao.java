@@ -7,8 +7,5 @@ import java.util.Optional;
 
 public interface UserDtoDao {
     UserDto findUserDtoById(Long id);
-
-    Optional<User> findId(Long id);
-
     boolean isExist(Long userId);
 }

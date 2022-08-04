@@ -19,10 +19,6 @@ public class UserDtoServiceImpl implements UserDtoService {
     public UserDto findUserDtoById(Long id) {
         return userDtoDao.findUserDtoById(id);
     }
-    @Override
-    public Optional<User> findId(Long id) {
-        return userDtoDao.findId(id);
-    }
 
     public boolean isExist(Long userId) {
         return userDtoDao.isExist(userId);

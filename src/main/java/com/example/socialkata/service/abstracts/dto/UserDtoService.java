@@ -9,8 +9,6 @@ public interface UserDtoService {
 
  UserDto findUserDtoById(Long id);
 
- Optional<User> findId(Long id);
-
  boolean isExist(Long userId);
 
 }
