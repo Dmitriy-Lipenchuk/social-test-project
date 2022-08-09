@@ -4,5 +4,5 @@ import com.example.socialkata.model.entity.user.User;
 import com.example.socialkata.service.abstracts.GenericService;
 
 public interface UserService extends GenericService<User, Long> {
-
+    public User getUserByEmail (String username);
 }

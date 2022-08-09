@@ -6,44 +6,76 @@
 
 package com.example.socialkata.security;
 
+import com.example.socialkata.security.jwt.JwtConfigurer;
+import com.example.socialkata.security.jwt.JwtTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
+    private static final String ADMIN_ENDPOINT = "/admin/**";
+    private static final String USER_ENDPOINT = "/api/user";
+    private static final String LOGIN_ENDPOINT = "/login";
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    private final UserDetailsService userDetailsService;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public SecurityConfig(@Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService, JwtTokenProvider jwtTokenProvider) {
         this.userDetailsService = userDetailsService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
+//    public SecurityConfig(UserDetailsService userDetailsService) {
+//        this.userDetailsService = userDetailsService;
+//    }
+//    @Autowired
+//    public SecurityConfig(UserDetailsService userDetailsService, JwtTokenProvider jwtTokenProvider) {
+//        this.userDetailsService = userDetailsService;
+//        this.jwtTokenProvider = jwtTokenProvider;
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                //.httpBasic().disable() //добавлено в конфигурацию
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)  //не создаем сессию
+                .and()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers(LOGIN_ENDPOINT).permitAll()
                 .antMatchers("/my_page/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+                .antMatchers(USER_ENDPOINT).hasAnyRole("USER", "ADMIN")
 //              .anyRequest().authenticated()
+                .and()
+                .apply(new JwtConfigurer(jwtTokenProvider)) //добавлено в конфигурацию
                 .and()
                 .formLogin()
 //                .successHandler(successUserHandler)  //если решим перекидывать пользователя куда-то, например, для заполнения профиля
 //                .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/")
+                .logout().logoutSuccessUrl(LOGIN_ENDPOINT)
                 .permitAll();
     }
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder(12);
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Bean
