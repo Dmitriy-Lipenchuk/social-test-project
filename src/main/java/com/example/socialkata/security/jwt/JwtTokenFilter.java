@@ -2,40 +2,45 @@ package com.example.socialkata.security.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.GenericFilterBean;
-
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
  * фильтровать запросы на наличие токена
  * нет токена - нет доступа
  */
-public class JwtTokenFilter extends GenericFilterBean {
+@Component
+public class JwtTokenFilter extends OncePerRequestFilter {
 
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        //получаем токен из запроса
-        String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-        if(token != null && jwtTokenProvider.validateToken(token)) {
+        String token = jwtTokenProvider.resolveToken(request);
+
+        if (token != null && token.startsWith("Bearer ")) {
+            token.substring(7);
+        }
+
+        if(token == null && jwtTokenProvider.validateToken(token)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
 
             if(authentication != null) {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-        //System.out.println(((HttpServletRequest) servletRequest).getUserPrincipal());
-        filterChain.doFilter(servletRequest, servletResponse);
+
+        filterChain.doFilter(request, response);
     }
 }

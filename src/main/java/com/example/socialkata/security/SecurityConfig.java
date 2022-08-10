@@ -7,8 +7,6 @@
 package com.example.socialkata.security;
 
 import com.example.socialkata.security.jwt.JwtConfigurer;
-import com.example.socialkata.security.jwt.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,24 +23,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ADMIN_ENDPOINT = "/admin/**";
     private static final String USER_ENDPOINT = "/api/user";
-    private static final String LOGIN_ENDPOINT = "/login";
+    private static final String LOGIN_ENDPOINT = "/api/auth/login";
 
     private final UserDetailsService userDetailsService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtConfigurer jwtConfigurer;
 
-    public SecurityConfig(@Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService, JwtTokenProvider jwtTokenProvider) {
+    public SecurityConfig(@Qualifier("custom") UserDetailsService userDetailsService, JwtConfigurer jwtConfigurer) {
         this.userDetailsService = userDetailsService;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtConfigurer = jwtConfigurer;
     }
-
-//    public SecurityConfig(UserDetailsService userDetailsService) {
-//        this.userDetailsService = userDetailsService;
-//    }
-//    @Autowired
-//    public SecurityConfig(UserDetailsService userDetailsService, JwtTokenProvider jwtTokenProvider) {
-//        this.userDetailsService = userDetailsService;
-//        this.jwtTokenProvider = jwtTokenProvider;
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,14 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(USER_ENDPOINT).hasAnyRole("USER", "ADMIN")
 //              .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer(jwtTokenProvider)) //добавлено в конфигурацию
+                .apply(jwtConfigurer) //добавлено в конфигурацию
                 .and()
-                .formLogin()
-//                .successHandler(successUserHandler)  //если решим перекидывать пользователя куда-то, например, для заполнения профиля
-//                .permitAll()
-                .and()
-                .logout().logoutSuccessUrl(LOGIN_ENDPOINT)
-                .permitAll();
+                .formLogin();
     }
     @Bean
     public PasswordEncoder encoder() {

@@ -1,8 +1,6 @@
 package com.example.socialkata.webapp.controller;
 
-import com.example.socialkata.dao.abstracts.model.UserDao;
 import com.example.socialkata.dao.impl.dto.AuthenticationRequestDto;
-import com.example.socialkata.model.entity.user.Role;
 import com.example.socialkata.model.entity.user.User;
 import com.example.socialkata.security.jwt.JwtTokenProvider;
 import com.example.socialkata.service.abstracts.model.UserService;
@@ -17,13 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "api/auth")
 public class AuthenticationRestController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
@@ -37,7 +33,7 @@ public class AuthenticationRestController {
         this.userService = userService;
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();
@@ -48,7 +44,7 @@ public class AuthenticationRestController {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
 
-            String token = jwtTokenProvider.createToken(username); //todo разобраться с getRoles vs getAuthorities
+            String token = jwtTokenProvider.createToken(username, user.getRole().getName());
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);

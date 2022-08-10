@@ -1,25 +1,18 @@
 package com.example.socialkata.security.jwt;
 
-import com.example.socialkata.model.entity.user.Role;
-import com.example.socialkata.model.entity.user.User;
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * todo make comment about this class
@@ -28,25 +21,19 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    //@Value("${jwt.token.secret}")
-    @Value("kata")
+    @Value("${jwt.secret}")
     private String secretWord;
 
-    //@Value("${jwt.token.expired}")
-    @Value("3600000")
+    @Value("${jwt.expiration}")
     private long lengthTokenLife;
 
-    @Qualifier("jwtUserDetailsService")
-    @Autowired
-    private UserDetailsService userDetailsService;
+    @Value("${jwt.header}")
+    private String authorisationHeader;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;  //todo in video another realisation
+    private final UserDetailsService userDetailsService;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+    public JwtTokenProvider(@Qualifier("custom") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @PostConstruct
@@ -54,15 +41,12 @@ public class JwtTokenProvider {
         secretWord = Base64.getEncoder().encodeToString(secretWord.getBytes());
     }
 
-    public String createToken(String username) {
-        User user = (User) userDetailsService.loadUserByUsername(username);
-
+    public String createToken(String username, String role) {
         Claims claims = Jwts.claims().setSubject(username);
-        //claims.put("roles", getRoleNames(roles)); //убрал метод, тк у нас 1 роль на юзера
-        claims.put("roles", user.getRole().getName());
+        claims.put("roles", role);
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + lengthTokenLife);
+        Date validity = new Date(now.getTime() + lengthTokenLife * 1000);
 
         return Jwts.builder().setClaims(claims).setIssuedAt(now).setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secretWord).compact();
@@ -79,11 +63,7 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
-            return bearerToken.substring(7, bearerToken.length());
-        }
-        return null;
+        return Optional.ofNullable(request.getHeader(authorisationHeader)).orElse("");
     }
 
     public boolean validateToken(String token) {
@@ -99,12 +79,4 @@ public class JwtTokenProvider {
             throw new JwtAuthenticationException("JWT token is expired or invalid");
         }
     }
-//    метод не нужен, тк у нас одна роль на юзера
-//    private List<String> getRoleNames(List<Role> userRoles) {
-//        List<String> result = new ArrayList<>();
-//
-//        userRoles.forEach(role -> {result.add(role.getName());});
-//
-//        return result;
-//    }
 }
