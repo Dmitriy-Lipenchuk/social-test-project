@@ -7,12 +7,14 @@ import com.example.socialkata.service.abstracts.model.ActiveService;
 import com.example.socialkata.service.abstracts.model.RoleService;
 import com.example.socialkata.service.abstracts.model.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 
 @Service
+@ConditionalOnExpression("#{${app.initializer.runInitialize} == true}")
 public class TestDataInitService {
 
     private final UserService userService;
