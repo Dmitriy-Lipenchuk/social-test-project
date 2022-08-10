@@ -29,11 +29,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String token = jwtTokenProvider.resolveToken(request);
 
-        if (token != null && token.startsWith("Bearer ")) {
-            token.substring(7);
-        }
-
-        if(token == null && jwtTokenProvider.validateToken(token)) {
+        if(token != null && jwtTokenProvider.validateToken(token)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
 
             if(authentication != null) {

@@ -21,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String ADMIN_ENDPOINT = "/admin/**";
+    private static final String ADMIN_ENDPOINT = "/api/auth/**";
     private static final String USER_ENDPOINT = "/api/user";
     private static final String LOGIN_ENDPOINT = "/api/auth/login";
 

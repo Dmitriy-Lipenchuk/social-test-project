@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-//@RequestMapping("/")
+@RequestMapping("api/auth")
 public class UserTestController {
 
     private UserServiceImpl userService;
