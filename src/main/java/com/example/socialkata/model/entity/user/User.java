@@ -4,6 +4,7 @@ package com.example.socialkata.model.entity.user;
 import com.example.socialkata.model.entity.chat.GroupChat;
 import com.example.socialkata.model.entity.media.Audios;
 import com.example.socialkata.model.entity.media.Videos;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
