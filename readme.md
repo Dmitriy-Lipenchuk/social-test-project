@@ -719,6 +719,30 @@ PROFILE_ACTIVE=dev
 
 Видео по работе с библиотекой **Database Rider** (английский с русским акцентом :) ) - https://www.youtube.com/watch?v=1eRDIAqUBVU
 
+### Работа с JWT токеном
+
+JWT токен получаем с помощью postman (с его установкой и первоначальной настройкой можно ознакомиться -> https://losst.ru/kak-polzovatsya-postman?ysclid=l6nl6flv98403468750)
+
+Для получения токена:
+1. Выбираем POST запрос
+2. Указываем путь - http://localhost:9991/api/auth/login
+3. Выбираем Body
+4. Выбираем raw
+5. Выбираем JSON в выпадающем меню
+6. Добавляем запись в json-формате
+7. Нажимаем кнопку Send
+8. Выделяем значение в поле token и копируем его
+
+![](src/main/resources/static/images/1_jwt.png)
+
+![](src/main/resources/static/images/2_jwt.png)
+
+```angular2html
+Информация о настройке JWT
+Видео - https://www.youtube.com/watch?v=yRnSUDx3Y8k
+Статья - https://habr.com/ru/post/545610/?ysclid=l6c9a1kk7l28644989
+```
+_* в обоих ссылках есть репозиторий, откуда можно скачать рабочие примеры_
 
 ### ОПИСАНИЕ СТРУКТУРЫ ТЕСТОВ:
 
@@ -731,5 +755,6 @@ PROFILE_ACTIVE=dev
 7) Нельзя использовать аннотации тразакции для тестов.
 8) Нельзя ставить аннотацию **DataSet** над классом, для каждого отдельного метода теста стоит свой `dataset`.
 9) Все классы для тестов должны находиться в папке *.../api.*
+
 
 
