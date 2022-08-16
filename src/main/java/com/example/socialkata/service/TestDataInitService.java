@@ -95,7 +95,6 @@ public class TestDataInitService {
 
     @Autowired
     public TestDataInitService(UserService userService, RoleService roleService, ActiveService activeService) {
-
         this.userService = userService;
         this.roleService = roleService;
         this.activeService = activeService;
