@@ -44,13 +44,13 @@ public class Playlist {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @JoinTable(name = "playlist_has_audios", joinColumns = @JoinColumn(name = "playlist_id"),
             inverseJoinColumns = @JoinColumn(name = "audios_id"))
-    private Set<Audios> playlistContent = new HashSet<>();
+    private Set<Audio> playlistContent = new HashSet<>();
 
-    public boolean addAudio(Audios audios) {
+    public boolean addAudio(Audio audios) {
         return playlistContent.add(audios);
     }
 
-    public boolean removeAudio(Audios audios) {
+    public boolean removeAudio(Audio audios) {
         return playlistContent.remove(audios);
     }
 }

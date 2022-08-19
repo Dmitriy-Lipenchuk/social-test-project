@@ -2,7 +2,7 @@ package com.example.socialkata.model.entity.album;
 
 import com.example.socialkata.exception.ApiRequestException;
 import com.example.socialkata.model.entity.media.MediaType;
-import com.example.socialkata.model.entity.media.Videos;
+import com.example.socialkata.model.entity.media.Video;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,10 +44,10 @@ public class AlbumVideo {
     @MapsId
     private Album album = new Album(MediaType.VIDEO);
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Videos.class, cascade = {CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Video.class, cascade = {CascadeType.PERSIST})
     @JoinTable(name = "album_has_video", joinColumns = @JoinColumn(name = "album_id"),
             inverseJoinColumns = @JoinColumn(name = "videos_id"))
-    private Set<Videos> videos;
+    private Set<Video> videos;
 
 
     @PrePersist
@@ -75,7 +75,7 @@ public class AlbumVideo {
         return album;
     }
 
-    public Set<Videos> getVideos() {
+    public Set<Video> getVideos() {
         return videos;
     }
 }

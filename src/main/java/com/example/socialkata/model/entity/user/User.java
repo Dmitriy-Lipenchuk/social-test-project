@@ -2,9 +2,8 @@ package com.example.socialkata.model.entity.user;
 
 
 import com.example.socialkata.model.entity.chat.GroupChat;
-import com.example.socialkata.model.entity.media.Audios;
-import com.example.socialkata.model.entity.media.Videos;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.socialkata.model.entity.media.Audio;
+import com.example.socialkata.model.entity.media.Video;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -117,15 +115,15 @@ public class User implements UserDetails {
     @JoinColumn(name = "active_id", nullable = false)
     private Active active;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Audios.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Audio.class)
     @JoinTable(name = "users_audios_collections", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "audio_id"))
-    private Set<Audios> audios;
+    private Set<Audio> audios;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Videos.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Video.class)
     @JoinTable(name = "users_videos_collections", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "video_id"))
-    private Set<Videos> videos;
+    private Set<Video> videos;
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = GroupChat.class)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
