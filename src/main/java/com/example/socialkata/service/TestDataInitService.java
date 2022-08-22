@@ -1,17 +1,21 @@
 package com.example.socialkata.service;
 
+import com.example.socialkata.model.entity.media.Audio;
+import com.example.socialkata.model.entity.media.Image;
+import com.example.socialkata.model.entity.media.Video;
 import com.example.socialkata.model.entity.user.Active;
 import com.example.socialkata.model.entity.user.Role;
 import com.example.socialkata.model.entity.user.User;
-import com.example.socialkata.service.abstracts.model.ActiveService;
-import com.example.socialkata.service.abstracts.model.RoleService;
-import com.example.socialkata.service.abstracts.model.UserService;
+import com.example.socialkata.service.abstracts.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @ConditionalOnExpression("#{${app.initializer.runInitialize} == true}")
@@ -23,24 +27,36 @@ public class TestDataInitService {
 
     private final ActiveService activeService;
 
-    private final String[] firstNames = new String[] {"Pep", "Jon", "Edd", "Cercei", "Jamie", "Karl", "Son", "Smith",
+    private final ImageService imageService;
+
+    private final VideoService videoService;
+
+    private final AudioService audioService;
+
+    private final String IMG_FOLDER;
+
+    private final String VIDEO_FOLDER;
+
+    private final String AUDIO_FOLDER;
+
+    private final String[] firstNames = new String[]{"Pep", "Jon", "Edd", "Cercei", "Jamie", "Karl", "Son", "Smith",
             "Robert", "Aegon", "Samuel", "Xavi", "Anderson", "Zak", "Ollie", "Jora", "Clark", "Winter",
             "Sam", "Oleg", "Frank", "Nadya", "Freya", "Lina", "Maiden", "Abba", "Olya", "Alexander",
             "Brad", "Hotpie", "Kent", "Axe", "Riki", "Brew", "Swann", "Crow", "Rafa", "David",
             "Andrew", "Phill", "Peter", "Jaque", "Jaqen", "Lyanna", "Ygritte", "Robb", "Fernando", "Lionel",
             "Chris", "Joe"};
 
-    private final String[] lastNames = new String[] {"Flow", "Snow", "Sand", "Wind", "Winter", "Kastark", "Sow",
+    private final String[] lastNames = new String[]{"Flow", "Snow", "Sand", "Wind", "Winter", "Kastark", "Sow",
             "White", "Walker", "Anderson", "Jackson", "Willie", "Stones", "Doche", "Dickens", "Lowe", "Locke", "Crown",
             "Lannister", "Stark", "Baratheon", "Mayweather", "Zidan", "Zork", "Foden", "Sad", "Happy", "Green",
             "Brown", "Sweet", "Peek", "Pozdnyakov", "Loft", "Breek", "Shrope", "Zelenskiy", "Johnson", "Obama",
             "Beckham", "River", "Warm", "Worm", "Vow", "Vien", "North", "Bar", "Boi", "Baiden",
             "Fresco", "Halaand"};
 
-    private final String[] educations = new String[] {"Master degree", "High School", "Ph.D", "Highgarden",
+    private final String[] educations = new String[]{"Master degree", "High School", "Ph.D", "Highgarden",
             "Stanford University", "NNTU, Russia", "Oxford, United Kingdom", "Harvard, United States", "Home, Homeland",
             "California IoT, United States", "UCL, United Kingdom", "ETH Zurich, Switzerland",
-            "University of Chicago, United States", "Yale, USA", "MGU, Russia","EPFL, Switzerland", "UM, Malasiya",
+            "University of Chicago, United States", "Yale, USA", "MGU, Russia", "EPFL, Switzerland", "UM, Malasiya",
             "Sweet Crown university, noland", "SNU, Seul", "The University of Tokyo, Japan",
             "The University of Toronto, Canada", "NONE", "Duke university, USA",
             "KAIST, South Korea", "Sorbonne, France", "Lomonosov University, Russia", "KU Leuven, Belgium",
@@ -52,15 +68,15 @@ public class TestDataInitService {
             "Crapp, USA", "Lancaster University, United Kingdoms", "TUB, Germany", "NGTU, Russia", "RGGU, Russia",
             "Church Applied School", "8 years of high school", "Nyaniang Technology, Singapoore"};
 
-    private final String[] cities = new String[] {"Москва", "Pavlovo", "Gorky", "Budapest", "London",
+    private final String[] cities = new String[]{"Москва", "Pavlovo", "Gorky", "Budapest", "London",
             "Liverpool", "Amsterdam", "Manchester", "Zurich", "Oslo", "St.Petersburg", "Vladimir", "Perm", "Tokyo",
             "Vale", "Milan", "Rome", "Toronto", "Madrid", "Barcelona", "Vladivostok", "Kazan", "Rostov", "Murmansk",
             "Заполярный", "Чита", "Краснодар", "Berlin", "Borussia", "Frankfurt", "Bayern", "Koln", "Kyoto",
             "Samara", "Volgograd", "Paris", "Riverrun", "Magadan", "Severodvinsk", "Kyev", "Zhytomir", "Odessa",
             "Maryupol", "Dontesk", "Lviv", "Vinnica", "Cherkasy", "Holy Heaven", "Mountain", "Skyes"};
 
-    private final String[] emails = new String[] {"admin@gmail.com", "eety@gmail.com", "fett@gmail.com",
-            "nbnb@gmail.com","d4444@gmail.com", "dsx@gmail.com", "zz5@gmail.com", "dbvnnd@gmail.com", "cxt@gmail.com",
+    private final String[] emails = new String[]{"admin@gmail.com", "eety@gmail.com", "fett@gmail.com",
+            "nbnb@gmail.com", "d4444@gmail.com", "dsx@gmail.com", "zz5@gmail.com", "dbvnnd@gmail.com", "cxt@gmail.com",
             "ddghkgkgkgk@gmail.com", "dd2hg@gmail.com", "kkkkkyy@gmail.com", "ddjyj@gmail.com", "try@gmail.com",
             "SOKOL@mail.com", "dklskdl@rambler.ru", "dd2h888g@gmail.com", "dd2dsgg@gmail.com", "d78794@gmail.com",
             "ddh55hg@gmail.com", "ddevrr@gmail.com", "dvzg@mail.com", "rrr@gmail.com", "xxxv@gmail.com",
@@ -72,17 +88,17 @@ public class TestDataInitService {
             , "kdwetu@gmail.com"};
 
     //two BCrypted passwords: "admin" for "ROLE_ADMIN" & "user" for "ROLE_USER"
-    private final String[] passwords = new String[] {"$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW",
+    private final String[] passwords = new String[]{"$2a$12$A867XENvl1mrVozAvFawuup0Rt.xN5Ny5dmWOSyuJU4h9Syd2DuqW",
             "$2a$12$.LNZWaMp891irkJw6V7AZehdVOVWzJrXm4qfnDMstawpAgXULV8n."};
 
-    private final String[] statuses = new String[] {"Chill", "relax", "Bored", "Lazy", "breathing", "zzzZzz...",
+    private final String[] statuses = new String[]{"Chill", "relax", "Bored", "Lazy", "breathing", "zzzZzz...",
             "O_O", ":)", ")))", "??", "Walking", "busy", "InLov3", "3321", "Chill", "Отдихаю", "counting", "standing",
             "Дышу", "zzzZzz...", "O_O", ":)", ")))", "??", "Walking", "busy", "InLov3", "3321",
             "Chill", "skooka", "coughing", "doing plank", "FLEXING", "zzzZzz...", "SLOZNO", ":)",
             ")))", "??", "Walking", "KEK", "L0L", "CRINGEEE", "EZ", "watching", "feeling", "blanked", "thinking",
             "zzzZzz...", "O_O_O", "woto ez"};
 
-    private final String[] professions = new String[] {"Lirik", "Повар", "Craftmen", "Driver",
+    private final String[] professions = new String[]{"Lirik", "Повар", "Craftmen", "Driver",
             "Teacher", "Manager", "Boss", "Joker", "SellSword", "Junior Developer",
             "Agent", "Talker", "Speeker", "President", "Engineer", "Master", "Trainy", "Goalkeeper",
             "Senior Java Developer", "Lirik", "Повар", "Уборщица", "Кладовщик",
@@ -94,10 +110,20 @@ public class TestDataInitService {
             "Senior Java Developer"};
 
     @Autowired
-    public TestDataInitService(UserService userService, RoleService roleService, ActiveService activeService) {
+    public TestDataInitService(UserService userService, RoleService roleService, ActiveService activeService,
+                               ImageService imageService, VideoService videoService, AudioService audioService,
+                               @Value("${path.directories.uploads.img}") String img_folder,
+                               @Value("${path.directories.uploads.video}") String video_folder,
+                               @Value("${path.directories.uploads.audio}") String audio_folder) {
         this.userService = userService;
         this.roleService = roleService;
         this.activeService = activeService;
+        this.imageService = imageService;
+        this.videoService = videoService;
+        this.audioService = audioService;
+        IMG_FOLDER = img_folder;
+        VIDEO_FOLDER = video_folder;
+        AUDIO_FOLDER = audio_folder;
     }
 
     public void initRole(String name) {
@@ -155,8 +181,36 @@ public class TestDataInitService {
         }
     }
 
+    public void setRandomMedia() {
+        List<User> userList = userService.getAll();
+        String[] images = new File(IMG_FOLDER).list();
+        String[] videos = new File(VIDEO_FOLDER).list();
+        String[] audios = new File(AUDIO_FOLDER).list();
+
+        for (int i = 0; i < userList.size(); i++) {
+            User currentUser = userList.get(i);
+            Image image = new Image(currentUser, images[i % images.length]);
+            Video video = new Video(currentUser, videos[i % videos.length], "INIT VIDEO", currentUser.getFirstName());
+            Audio audio = new Audio(currentUser, audios[i % audios.length], currentUser.getFirstName(), "INIT AUDIO");
+
+            image.setDescription("INIT IMAGE");
+
+            imageService.create(image);
+            videoService.create(video);
+            audioService.create(audio);
+
+            setAvatar(currentUser, image);
+        }
+    }
+
+    public void setAvatar(User user, Image image) {
+        user.setAvatar(image.getMedia().getUrl());
+        userService.update(user);
+    }
+
     @PostConstruct
     public void fillTablesWithData() {
         setUsersWithRandomParameters();
+        setRandomMedia();
     }
 }
