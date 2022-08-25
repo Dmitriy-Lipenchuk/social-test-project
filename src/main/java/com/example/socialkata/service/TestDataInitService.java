@@ -130,20 +130,21 @@ public class TestDataInitService {
         roleService.create(new Role(name));
     }
 
-    public void initActive(String name) {
-        activeService.create(new Active(name));
+    public void addAdminAndUserRoles() {
+        initRole("ROLE_ADMIN");
+        initRole("ROLE_USER");
+    }
+
+    public void initActive() {
+        activeService.create(new Active("Active"));
     }
 
     public void initUser(User user) {
+        user.setActive(activeService.getById(1L).get());
         userService.create(user);
     }
 
     public void setUsersWithRandomParameters() {
-        initRole("ROLE_ADMIN");
-        initRole("ROLE_USER");
-
-        initActive("active");
-
         LocalDate dateOfBirth = LocalDate.of(1901, 7, 28);
 
         for (int i = 0; i < 50; i++) {
@@ -171,16 +172,9 @@ public class TestDataInitService {
                 user.setPassword(passwords[1]); //password - user
             }
 
-            if (activeService.getById(1L).isPresent()) {
-                user.setActive(activeService.getById(1L).get());
-            } else {
-                System.out.println("NET ACTIVE");
-            }
-
             initUser(user);
         }
     }
-
     public void setRandomMedia() {
         List<User> userList = userService.getAll();
         String[] images = new File(IMG_FOLDER).list();
@@ -210,6 +204,8 @@ public class TestDataInitService {
 
     @PostConstruct
     public void fillTablesWithData() {
+        addAdminAndUserRoles();
+        initActive();
         setUsersWithRandomParameters();
         setRandomMedia();
     }
