@@ -29,6 +29,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @ActiveProfiles("test")
@@ -47,6 +51,8 @@ public abstract class AbstractTest {
     protected MockMvc mvc;
     @Autowired
     WebApplicationContext webApplicationContext;
+    @PersistenceContext
+    protected EntityManager entityManager; //для возмжности создания запросов к БД
 
     protected void setUp() {
         mvc = MockMvcBuilders

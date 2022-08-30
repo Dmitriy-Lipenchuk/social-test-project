@@ -55,6 +55,10 @@ public class StorageServiceImpl implements StorageService {
         Path path;
         InputStream fileStream;
 
+        if (type == null) {
+            throw new StorageException("Invalid format of file:  " + fileName);
+        }
+
         try {
             switch (type) {
                 case IMAGE -> {
@@ -77,7 +81,7 @@ public class StorageServiceImpl implements StorageService {
                 }
                 default -> throw new FileNotFoundException("Could not read path: " + fileName);
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             throw new FileNotFoundException("Could not read path: " + fileName, e);
         }
     }
