@@ -19,7 +19,7 @@ public abstract class ImageMapper {
 
     @Mapping(target = "media.mediaType", expression = "java(com.example.socialkata.model.entity.media.MediaType.IMAGE)")
     @Mapping(target = "media.user", source = "userId", qualifiedByName = "getUser")
-    @Mapping(target = "media.url", source = "url", qualifiedByName = "getUrl")
+    @Mapping(target = "media.url", source = "url")
     @Mapping(target = "description", source = "description")
     public abstract Image imageCreateDtoToImage(ImageCreateDto imageCreateDto);
 
@@ -30,14 +30,5 @@ public abstract class ImageMapper {
     @Named("getUser")
     protected User getUser(Long userId) {
         return userService.getById(userId).orElseThrow(() -> new StorageException("No user with ID: " + userId + " was found"));
-    }
-
-    @Named("getUrl")
-    protected String getUrl(String url) {
-        if (url != null) {
-            return url;
-        }
-
-        throw new StorageException("Url can't have null value");
     }
 }

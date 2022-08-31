@@ -43,11 +43,17 @@ public class TestImageController extends AbstractTest {
 
     @Test
     @DataSet(value = {"users.xml", "active.xml", "role.xml"}, cleanAfter = true)
-    void createImage_bad_input() throws Exception {
+    void createImage_bad_input() throws Exception { // тесты будут падать пока в AdviceController 5хх ошибки не будут обёрнуты в 4хх
         ImageCreateDto imageCreateDtoNullUrl = new ImageCreateDto(null, "test_description", 2L);
         mvc.perform(MockMvcRequestBuilders.post("/api/images")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapToJson(imageCreateDtoNullUrl)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+
+        ImageCreateDto imageCreateDtoBlankUrl = new ImageCreateDto("", "test_description", 2L);
+        mvc.perform(MockMvcRequestBuilders.post("/api/images")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapToJson(imageCreateDtoBlankUrl)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
 
         ImageCreateDto imageCreateDtoNullUser = new ImageCreateDto("test_url", "test_description", null);
