@@ -20,7 +20,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/images")
-@Validated(OnCreate.class)
+@Validated
 public class ImageRestController {
 
     private final ImageMapper imageMapper;
@@ -35,6 +35,7 @@ public class ImageRestController {
 
 
     @PostMapping
+    @Validated(OnCreate.class)
     @ApiOperation(value = "image create API")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Image created", response = ImageDto.class),
